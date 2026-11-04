@@ -13,14 +13,14 @@
     }
 </script>
 
-<h1 class="text-center text-4xl m-5">Welcome to <strong class="font-bold text-red-100">Chat App</strong></h1>
+<h1 class="text-center text-4xl m-5 fade-in">Welcome to <strong class="font-bold text-red-100">Chat App</strong></h1>
 
 <form onsubmit={join} class="flex flex-col relative items-center w-fit h-fit m-auto p-5 gap-1">
-    <label for="username" class="text-2xl">Username:</label>
-    <input required maxlength="16" minlength="6" id="username" name="username" bind:value={username} type="text" class="bg-amber-100/25 h-auto text-xl w-75">
-    <label for="displayname" class="text-2xl">Display name:</label>
-    <input maxlength="16" id="displayname" name="displayname" bind:value={displayname} type="text" class="bg-amber-100/25 h-auto text-xl w-75">
-    <button class="bg-blue-800 rounded p-1.5 m-5 font-bold text-xl">Join</button>
+    <label for="username" class="text-2xl fade-in">Username:</label>
+    <input required maxlength="16" minlength="6" id="username" name="username" bind:value={username} type="text" class="bg-amber-100/25 h-auto text-xl w-75 fade-in">
+    <label for="displayname" class="text-2xl fade-in">Display name:</label>
+    <input maxlength="16" id="displayname" name="displayname" bind:value={displayname} type="text" class="bg-amber-100/25 h-auto text-xl w-75 fade-in">
+    <button class="bg-blue-800 rounded p-1.5 m-5 font-bold text-xl fade-in">Join</button>
     <p class="text-red-300 font-bold"><!--Add error text here--></p>
     <div class="w-full h-full backdrop-blur-md rounded-2xl absolute z-[-1]"></div>
 </form>

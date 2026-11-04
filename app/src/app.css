@@ -3,3 +3,19 @@
 body {
     background-color: var(--color-rose-100);
 }
+/* Animations */
+.fade-in {
+	opacity: 1;
+	animation-name: fadeIn;
+	animation-timing-function: ease-in;
+	animation-duration: 750ms;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

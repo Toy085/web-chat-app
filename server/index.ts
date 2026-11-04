@@ -7,7 +7,10 @@ const server = createServer(app);
 const io = new Server(server);
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('a user connected at', Date());
+  socket.on("disconnect", () => {
+    console.log('a user disconnected at', Date());
+  });
 });
 
 server.listen(3000, () => {

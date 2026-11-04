@@ -1,6 +1,6 @@
-<h1 class="text-center text-4xl">Welcome to <strong>Chat App</strong></h1>
+<h1 class="text-center text-white text-4xl m-5">Welcome to <strong>Chat App</strong></h1>
 
-<form class="w-50 h-75">
+<form class="w-[50vw] h-[45vw] m-auto">
     <div class="w-full h-full backdrop-blur-md"></div>
 </form>
 

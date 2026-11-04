@@ -6,6 +6,7 @@
     <label for="displayname" class="text-2xl">Display name:</label>
     <input maxlength="32" minlength="6" id="displayname" name="displayname" type="text" class="bg-amber-100/25 h-auto text-xl w-75">
     <button class="bg-blue-800 rounded p-1.5 m-5 font-bold text-xl">Join</button>
+    <p class="text-red-300 font-bold"><!--Add error text here--></p>
     <div class="w-full h-full backdrop-blur-md rounded-2xl absolute z-[-1]"></div>
 </form>
 

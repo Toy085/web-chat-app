@@ -1,6 +1,13 @@
 <script lang="ts">
+    import { io } from "socket.io-client";
+    const ENDPOINT = 'http://localhost:3000';
+
+    const socket = io(ENDPOINT);
+    socket.emit("test")
+
     let username: string = $state("")
     let displayname: string = $state("")
+
     function join() {
         if (displayname.length === 0) {displayname = username}
     }

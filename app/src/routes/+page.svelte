@@ -13,7 +13,7 @@
     }
 </script>
 
-<h1 class="text-center text-4xl m-5">Welcome to <strong>Chat App</strong></h1>
+<h1 class="text-center text-4xl m-5">Welcome to <strong class="font-bold text-red-100">Chat App</strong></h1>
 
 <form onsubmit={join} class="flex flex-col relative items-center w-fit h-fit m-auto p-5 gap-1">
     <label for="username" class="text-2xl">Username:</label>
@@ -29,6 +29,7 @@
     :global(body) {
         background-image: url("src/lib/assets/images/background/robbin-grimm-JBKaUMZxspA-unsplash.jpg");
         background-size: cover;
+        background-color: black;
         color: white;
     }
 </style>

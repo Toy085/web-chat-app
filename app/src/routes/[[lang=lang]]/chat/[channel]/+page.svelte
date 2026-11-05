@@ -1,7 +1,7 @@
 <script lang="ts">
     import { page } from '$app/state';
 
-    let channelId = page.params.channel;
+    let channelId = $derived(page.params.channel);
 </script>
 
-<h1>{channelId}</h1>
+<p>Current channel: {channelId}</p>

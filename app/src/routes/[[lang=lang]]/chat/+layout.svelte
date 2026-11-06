@@ -15,7 +15,6 @@
     let channels: Array<string> = $state([]);
     let message: string = $state("");
     let messages: Array<string> = $state([]);
-    messages.push("Hello World!")
 
     let username: string = $state("")
     let displayname: string = $state("")
@@ -23,7 +22,7 @@
 	onMount(() => {
         username = localStorage?.getItem("username")
         displayname = localStorage?.getItem("displayname")
-        messages = JSON.parse(localStorage.getItem("messages"))
+        messages = JSON.parse(localStorage.getItem("messages") || "[]")
 
         socket.emit("getChannels", (response) => {
             if (response.status !== "ok") {return}
@@ -37,11 +36,11 @@
         localStorage.setItem("messages", JSON.stringify(messages));
     })
 
-    function sendMessage(msg: string) {
-        if (msg.length === 0) { return; }
-        messages.push(msg);
+    function sendMessage() {
+        if (message.length === 0) { return; }
+        messages.push(message);
         localStorage.setItem("messages", JSON.stringify(messages));
-        socket.emit("msg", username, msg);
+        socket.emit("msg", username, message);
         message = "";
     }
 </script>
@@ -65,7 +64,7 @@
         {#each messages as msg}
             <p>{msg}</p>
         {/each}
-            <form onsubmit={sendMessage(message)}>
+            <form onsubmit={sendMessage}>
                 <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50">
                 <button>Send<!--Replace with send icon--></button>
             </form>

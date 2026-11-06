@@ -9,7 +9,7 @@ const server = createServer(app);
 const db = new DatabaseSync('app.db');
 db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL)');
 db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TEXT NOT NULL, expire_date DATE)');
-const msg = db.prepare('INSERT INTO messages (username, message, expire_date) VALUES (?, ?, ?)');
+const add_msg = db.prepare('INSERT INTO messages (username, message, expire_date) VALUES (?, ?, ?)');
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -36,7 +36,8 @@ io.on('connection', (socket) => {
   socket.on('msg', (username: string, message: string) => {
     var expire_date = new Date(Date.now());
     expire_date.setDate(expire_date.getDate() + 90);
-    msg.run(username, message, expire_date);
+    const expireDateValue = expire_date instanceof Date ? expire_date.toISOString() : expire_date;
+    add_msg.run(username, message, expireDateValue);
     socket.emit('new_msg', username, message, Date());
   })
   socket.on('getChannels', (callback) => {

@@ -13,7 +13,6 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected at', Date());
   socket.on("disconnect", () => {
     console.log('a user disconnected at', Date());
   });
@@ -23,6 +22,7 @@ io.on('connection', (socket) => {
         status: 400
       })
     }
+    console.log(username, 'connected at', Date());
     callback({
       status: "ok"
     })

@@ -9,6 +9,9 @@
     let lang = page.params.lang ? page.params.lang : "en";
     let channels: Array<string> = $state([]);
 
+    let username: string = $state(localStorage.getItem("username"))
+    let displayname: string = $state(localStorage.getItem("displayname"))
+
     channels.push("minecraft")
     channels.push("T-matte")
     channels.push("General")
@@ -16,6 +19,8 @@
     channels.push("Lorem Ipsum")
     channels.push("({[minecraft]})")
 </script>
+
+<h2 class="text-center font-bold m-2.5">Welcome {username}</h2>
 
 {@render children()}
 

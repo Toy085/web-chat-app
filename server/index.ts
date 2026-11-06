@@ -27,6 +27,12 @@ io.on('connection', (socket) => {
       status: "ok"
     })
   })
+  socket.on('getChannels', (callback) => {
+    callback({
+      channels: ["minecraft", "t-matte"],
+      status: "ok"
+    })
+  })
 });
 
 httpServer.listen(3000, () => {

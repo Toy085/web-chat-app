@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { redirect } from "@sveltejs/kit";
     import { io } from "socket.io-client";
     const ENDPOINT = 'http://localhost:3000';
 
@@ -14,8 +15,7 @@
             if (response.status === "ok") {
                 localStorage.setItem("username", username);
                 localStorage.setItem("displayname", displayname);
-                goto("/chat")
-                return;
+                redirect(307, "/chat");
             } else {
                 return response.status;
             }

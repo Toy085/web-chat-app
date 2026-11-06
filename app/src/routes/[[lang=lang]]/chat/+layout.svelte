@@ -1,23 +1,29 @@
 <script lang="ts">
     import { page } from '$app/state';
     import { io } from "socket.io-client";
+	import { onMount } from 'svelte';
+
+    let { children } = $props();
+
     const ENDPOINT = 'http://localhost:3000';
 
     const socket = io(ENDPOINT);
-
-	let { children } = $props();
+	
     let lang = page.params.lang ? page.params.lang : "en";
     let channels: Array<string> = $state([]);
 
-    let username: string = $state(localStorage.getItem("username"))
-    let displayname: string = $state(localStorage.getItem("displayname"))
+    let username: string = $state("")
+    let displayname: string = $state("")
 
-    channels.push("minecraft")
-    channels.push("T-matte")
-    channels.push("General")
-    channels.push("Kasane Teto Fan Club")
-    channels.push("Lorem Ipsum")
-    channels.push("({[minecraft]})")
+	onMount(() => {
+        username = localStorage?.getItem("username")
+        displayname = localStorage?.getItem("displayname")
+
+        socket.emit("getChannels", (response) => {
+            if (response.status !== "ok") {return}
+            channels = response.channels;
+        })
+    });
 </script>
 
 <h2 class="text-center font-bold m-2.5">Welcome {username}</h2>

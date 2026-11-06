@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
   })
   socket.on('getChannels', (callback) => {
     callback({
-      channels: ["minecraft", "t-matte"],
+      channels: ["General", "minecraft", "t-matte", "p-matte", "Kasane Teto Fan Club"],
       status: "ok"
     })
   })

@@ -3,6 +3,8 @@
     import { io } from "socket.io-client";
 	import { onMount } from 'svelte';
 
+    let channelId = $derived(page.params.channel);
+
     let { children } = $props();
 
     const ENDPOINT = 'http://localhost:3000';
@@ -38,6 +40,8 @@
         {/each}
     </div>
     <div class="flex flex-col">
-
+    {#if channelId}
+        <p>Current channel: {channelId}</p>
+    {/if}
     </div>
 </div>

@@ -3,5 +3,3 @@
 
     let channelId = $derived(page.params.channel);
 </script>
-
-<p>Current channel: {channelId}</p>

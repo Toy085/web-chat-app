@@ -1,3 +1,7 @@
+import sqlite3 from "sqlite3";
+
+const db = new sqlite3.Database("server.db");
+
 const express = require('express');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');

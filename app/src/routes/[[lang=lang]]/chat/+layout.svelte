@@ -13,6 +13,7 @@
 	
     let lang = page.params.lang ? page.params.lang : "en";
     let channels: Array<string> = $state([]);
+    let messages: Array<string> = $state([])
 
     let username: string = $state("")
     let displayname: string = $state("")
@@ -42,8 +43,8 @@
     </div>
     <!--Chat Box-->
     <div class="flex flex-col">
-    {#if channelId}
-        <p>Current channel: {channelId}</p>
-    {/if}
+        {#if channelId}
+            <p>Current channel: {channelId}</p>
+        {/if}
     </div>
 </div>

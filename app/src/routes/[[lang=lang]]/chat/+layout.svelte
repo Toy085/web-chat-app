@@ -32,13 +32,15 @@
 
 {@render children()}
 
-<div class="flex flex-row w-[85vw] h-[90vh] m-auto">  
+<div class="flex flex-row w-[85vw] h-[90vh] m-auto">
+    <!--Channel list--> 
     <div class="flex flex-col">
         <h3 class="text-xl font-medium -ml-5">Channels:</h3>
         {#each channels as channel}
             <a href={"/" + lang + "/chat/" + channel} class="text-blue-500 underline active:text-blue-700">{channel}</a>
         {/each}
     </div>
+    <!--Chat Box-->
     <div class="flex flex-col">
     {#if channelId}
         <p>Current channel: {channelId}</p>

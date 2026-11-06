@@ -4,15 +4,31 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+
+const httpServer = createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["http://localhost:5173"]
+  }
+});
 
 io.on('connection', (socket) => {
   console.log('a user connected at', Date());
   socket.on("disconnect", () => {
     console.log('a user disconnected at', Date());
   });
+  socket.on('join', (username: string, displayname: string, callback) => {
+    if (username.length === 0 || displayname.length === 0) {
+      callback({
+        status: 400
+      })
+    }
+    callback({
+      status: "ok"
+    })
+  })
 });
 
-server.listen(3000, () => {
+httpServer.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });

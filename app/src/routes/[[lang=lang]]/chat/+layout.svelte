@@ -1,5 +1,10 @@
 <script lang="ts">
     import { page } from '$app/state';
+    import { io } from "socket.io-client";
+    const ENDPOINT = 'http://localhost:3000';
+
+    const socket = io(ENDPOINT);
+
 	let { children } = $props();
     let lang = page.params.lang ? page.params.lang : "en";
     let channels: Array<string> = $state([]);

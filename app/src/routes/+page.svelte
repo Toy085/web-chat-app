@@ -1,15 +1,25 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
     import { io } from "socket.io-client";
     const ENDPOINT = 'http://localhost:3000';
 
     const socket = io(ENDPOINT);
-    socket.emit("test")
 
     let username: string = $state("")
     let displayname: string = $state("")
 
     function join() {
-        if (displayname.length === 0) {displayname = username}
+        if (displayname.length === 0) {displayname = username;}
+        socket.emit("join", (username), (displayname), (response) => {
+            if (response.status === "ok") {
+                localStorage.setItem("username", username);
+                localStorage.setItem("displayname", displayname);
+                goto("/chat")
+                return;
+            } else {
+                return response.status;
+            }
+        })
     }
 </script>
 

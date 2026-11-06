@@ -15,7 +15,7 @@
             if (response.status === "ok") {
                 localStorage.setItem("username", username);
                 localStorage.setItem("displayname", displayname);
-                redirect(307, "/chat");
+                goto('/chat'); // FIX Remove background image
             } else {
                 return response.status;
             }

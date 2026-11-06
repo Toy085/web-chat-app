@@ -1,14 +1,11 @@
-import sqlite3 from "sqlite3";
-
-const db = new sqlite3.Database("server.db");
-
 const express = require('express');
+const { DatabaseSync } = require('node:sqlite');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
 
 const app = express();
 const server = createServer(app);
-
+const db = new DatabaseSync('app.db');
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {

@@ -6,10 +6,12 @@ const { Server } = require('socket.io');
 const app = express();
 const server = createServer(app);
 
-const db = new DatabaseSync('app.db');
+const db = new DatabaseSync('app.db', );
 db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL)');
 db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TEXT NOT NULL, expire_date DATE)');
+
 const add_msg = db.prepare('INSERT INTO messages (username, message, expire_date) VALUES (?, ?, ?)');
+const get_msg = db.prepare('SELECT message FROM messages');
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -38,11 +40,17 @@ io.on('connection', (socket) => {
     expire_date.setDate(expire_date.getDate() + 90);
     const expireDateValue = expire_date instanceof Date ? expire_date.toISOString() : expire_date;
     add_msg.run(username, message, expireDateValue);
-    socket.emit('new_msg', username, message, Date());
+    io.emit('new_msg', username, message, Date());
   })
   socket.on('getChannels', (callback) => {
     callback({
       channels: ["General", "minecraft", "t-matte", "p-matte", "Kasane Teto Fan Club"],
+      status: "ok"
+    })
+  })
+  socket.on('getMessageHistory', (callback) => {
+    callback({
+      messages: get_msg.all().map(row => row.message),
       status: "ok"
     })
   })

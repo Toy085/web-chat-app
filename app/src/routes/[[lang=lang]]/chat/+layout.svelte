@@ -28,18 +28,22 @@
             if (response.status !== "ok") {return}
             channels = response.channels;
         })
+        socket.emit("getMessageHistory", (response) => {
+            if (response.status !== "ok") {return}
+            messages = response.messages;
+        })
     });
 
     socket.on("new_msg", (un, msg, date) => {
         if (un === username) { return; }
         messages.push(msg);
-        localStorage.setItem("messages", JSON.stringify(messages));
+        localStorage?.setItem("messages", JSON.stringify(messages));
     })
 
     function sendMessage() {
         if (message.length === 0) { return; }
         messages.push(message);
-        localStorage.setItem("messages", JSON.stringify(messages));
+        localStorage?.setItem("messages", JSON.stringify(messages));
         socket.emit("msg", username, message);
         message = "";
     }

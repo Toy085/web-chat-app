@@ -26,3 +26,5 @@ vite.config.ts.timestamp-*
 *.db
 .db
 app.db
+server/app.db
+server/app.db

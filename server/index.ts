@@ -6,7 +6,7 @@ const { Server } = require('socket.io');
 const app = express();
 const server = createServer(app);
 
-const db = new DatabaseSync('app.db', );
+const db = new DatabaseSync('app.db');
 db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL)');
 db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TEXT NOT NULL, channel TEXT NOT NULL, expire_date DATE)');
 

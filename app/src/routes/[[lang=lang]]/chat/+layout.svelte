@@ -3,6 +3,7 @@
     import { page } from '$app/state';
     import { io } from "socket.io-client";
 	import { onMount } from 'svelte';
+    import sendIcon from "#lib/assets/send_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
 
     let channelId = $derived(page.params.channel);
 
@@ -85,7 +86,7 @@
             {/each}
             <form onsubmit={sendMessage} class="m-auto">
                 <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 w-75">
-                <button>Send<!--Replace with send icon--></button>
+                <button><img src={sendIcon} alt="send"></button>
             </form>
         {:else}
         <p>Choose a channel!</p>

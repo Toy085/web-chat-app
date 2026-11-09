@@ -8,10 +8,10 @@ const server = createServer(app);
 
 const db = new DatabaseSync('app.db', );
 db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL)');
-db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TEXT NOT NULL, expire_date DATE)');
+db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TEXT NOT NULL, channel TEXT NOT NULL, expire_date DATE)');
 
-const add_msg = db.prepare('INSERT INTO messages (username, message, expire_date) VALUES (?, ?, ?)');
-const get_msg = db.prepare('SELECT message FROM messages');
+const add_msg = db.prepare('INSERT INTO messages (username, message, channel, expire_date) VALUES (?, ?, ?, ?)');
+const get_msg = db.prepare('SELECT username, message, channel FROM messages');
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -50,7 +50,9 @@ io.on('connection', (socket) => {
   })
   socket.on('getMessageHistory', (callback) => {
     callback({
+      usernames: get_msg.all().map(row => row.username),
       messages: get_msg.all().map(row => row.message),
+      channels: get_msg.all().map(row => row.channel),
       status: "ok"
     })
   })

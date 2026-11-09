@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { browser } from '$app/env';
     import { page } from '$app/state';
     import { io } from "socket.io-client";
 	import { onMount } from 'svelte';
@@ -15,6 +16,8 @@
     let channels: Array<string> = $state([]);
     let message: string = $state("");
     let messages: Array<string> = $state([]);
+    let messages_un: Array<string> = $state([]);
+    let messages_ch: Array<string> = $state([]);
 
     let username: string = $state("")
     let displayname: string = $state("")
@@ -31,17 +34,21 @@
         socket.emit("getMessageHistory", (response) => {
             if (response.status !== "ok") {return}
             messages = response.messages;
+            messages_un = response.usernames;
+            messages_ch = response.channels;
         })
     });
 
     socket.on("new_msg", (un, msg, date) => {
         if (un === username) { return; }
+        if (!browser) { return; }
         messages.push(msg);
         localStorage?.setItem("messages", JSON.stringify(messages));
     })
 
     function sendMessage() {
         if (message.length === 0) { return; }
+        if (!browser) { return; }
         messages.push(message);
         localStorage?.setItem("messages", JSON.stringify(messages));
         socket.emit("msg", username, message);
@@ -65,8 +72,10 @@
     <div class="flex flex-col">
         {#if channelId}
             <p>Current channel: {channelId}</p>
-        {#each messages as msg}
+        {#each messages as msg, i}
+        {#if messages_ch[i] === channelId}
             <p>{msg}</p>
+        {/if}
         {/each}
             <form onsubmit={sendMessage}>
                 <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50">

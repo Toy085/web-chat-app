@@ -77,7 +77,10 @@
             <p>Current channel: {channelId}</p>
         {#each messages as msg, i}
             {#if messages_ch[i] === channelId}
-                <p>{msg}</p>
+                <div>
+                    <p>{messages_un[i]}</p>
+                    <p>{msg}</p>
+                </div>
             {/if}
         {/each}
             <form onsubmit={sendMessage}>

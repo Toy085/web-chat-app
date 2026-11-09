@@ -31,28 +31,31 @@
             if (response.status !== "ok") {return}
             channels = response.channels;
         })
-        socket.emit("getMessageHistory", (response) => {
-            if (response.status !== "ok") {return}
-            messages = response.messages;
-            messages_un = response.usernames;
-            messages_ch = response.channels;
-        })
+        refreshMessages
     });
 
     socket.on("new_msg", (un, msg, date) => {
         if (un === username) { return; }
-        if (!browser) { return; }
-        messages.push(msg);
-        localStorage?.setItem("messages", JSON.stringify(messages));
+        refreshMessages();
     })
 
     function sendMessage() {
         if (message.length === 0) { return; }
         if (!browser) { return; }
-        messages.push(message);
-        localStorage?.setItem("messages", JSON.stringify(messages));
         socket.emit("msg", username, message, channelId);
         message = "";
+        refreshMessages();
+    }
+
+    function refreshMessages() {
+        if (!browser) { return; }
+        socket.emit("getMessageHistory", (response) => {
+            if (response.status !== "ok") {return}
+            messages = response.messages;
+            localStorage?.setItem("messages", JSON.stringify(messages));
+            messages_un = response.usernames;
+            messages_ch = response.channels;
+        })
     }
 </script>
 
@@ -73,9 +76,9 @@
         {#if channelId}
             <p>Current channel: {channelId}</p>
         {#each messages as msg, i}
-        {#if messages_ch[i] === channelId}
-            <p>{msg}</p>
-        {/if}
+            {#if messages_ch[i] === channelId}
+                <p>{msg}</p>
+            {/if}
         {/each}
             <form onsubmit={sendMessage}>
                 <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50">

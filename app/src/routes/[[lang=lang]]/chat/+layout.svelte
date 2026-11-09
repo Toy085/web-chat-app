@@ -59,34 +59,36 @@
     }
 </script>
 
-<h2 class="text-center font-bold m-2.5">Welcome {username}</h2>
+<h2 class="text-center m-2.5">Welcome <strong>{username}</strong></h2>
 
 {@render children()}
 
 <div class="flex flex-row w-[85vw] h-[90vh] m-auto">
     <!--Channel list--> 
-    <div class="flex flex-col">
+    <div class="flex flex-col w-48">
         <h3 class="text-xl font-medium -ml-5">Channels:</h3>
         {#each channels as channel}
             <a href={"/" + lang + "/chat/" + channel} class="text-blue-500 underline active:text-blue-700">{channel}</a>
         {/each}
     </div>
     <!--Chat Box-->
-    <div class="flex flex-col">
+    <div class="flex flex-col w-full">
         {#if channelId}
-            <p>Current channel: {channelId}</p>
-        {#each messages as msg, i}
-            {#if messages_ch[i] === channelId}
-                <div>
-                    <p>{messages_un[i]}</p>
-                    <p>{msg}</p>
-                </div>
-            {/if}
-        {/each}
-            <form onsubmit={sendMessage}>
-                <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50">
+            <p class="text-center font-bold text-lg">{channelId}</p>
+            {#each messages as msg, i}
+                {#if messages_ch[i] === channelId}
+                    <div class="flex flex-col w-full p-0.5 m-0.5">
+                        <p class="text-gray-500 font-bold text-sm">{messages_un[i]}</p>
+                        <p class="text-base">{msg}</p>
+                    </div>
+                {/if}
+            {/each}
+            <form onsubmit={sendMessage} class="m-auto">
+                <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 w-75">
                 <button>Send<!--Replace with send icon--></button>
             </form>
+        {:else}
+        <p>Choose a channel!</p>
         {/if}
     </div>
 </div>

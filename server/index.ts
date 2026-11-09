@@ -12,6 +12,7 @@ db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TE
 
 const add_msg = db.prepare('INSERT INTO messages (username, message, channel, expire_date) VALUES (?, ?, ?, ?)');
 const get_msg = db.prepare('SELECT username, message, channel FROM messages');
+const del_old_msg = db.prepare('DELETE FROM messages WHERE expire_date < ?');
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -49,6 +50,7 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('getMessageHistory', (callback) => {
+    del_old_msg.run(new Date().toISOString());
     callback({
       usernames: get_msg.all().map(row => row.username),
       messages: get_msg.all().map(row => row.message),

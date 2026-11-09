@@ -51,7 +51,7 @@
         if (!browser) { return; }
         messages.push(message);
         localStorage?.setItem("messages", JSON.stringify(messages));
-        socket.emit("msg", username, message);
+        socket.emit("msg", username, message, channelId);
         message = "";
     }
 </script>

@@ -77,7 +77,7 @@
             <p class="text-center font-bold text-lg">{channelId}</p>
             {#each messages as msg, i}
                 {#if messages_ch[i] === channelId}
-                    <div class="flex flex-col w-full p-0.5 m-0.5">
+                    <div class={messages_un[i] === username ? "text-right flex flex-col w-full p-0.5 m-0.5" : "flex flex-col w-full p-0.5 m-0.5"}>
                         <p class="text-gray-500 font-bold text-sm">{messages_un[i]}</p>
                         <p class="text-base">{msg}</p>
                     </div>

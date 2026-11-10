@@ -15,7 +15,9 @@
             if (response.status === "ok") {
                 localStorage.setItem("username", username);
                 localStorage.setItem("displayname", displayname);
-                goto('/chat'); // FIX Remove background image
+                const a = document.createElement("a");
+                a.href = "/chat";
+                a.click();
             } else {
                 return response.status;
             }

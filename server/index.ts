@@ -22,8 +22,8 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket) => {
-  socket.on("disconnect", () => {
-    console.log('a user disconnected at', Date());
+  socket.on("disconnect", (reason) => {
+    console.log(socket.id, 'disconnected at', Date(), "Reason:", reason);
   });
   socket.on('join', (username: string, displayname: string, callback) => {
     if (username.length === 0 || displayname.length === 0) {

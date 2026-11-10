@@ -31,6 +31,8 @@
         displayname = localStorage?.getItem("displayname")
         messages = JSON.parse(localStorage.getItem("messages") || "[]")
 
+        const Music = new Audio(musicList[0]);
+
         socket.emit("getChannels", (response) => {
             if (response.status !== "ok") {return}
             channels = response.channels;
@@ -38,7 +40,7 @@
         refreshMessages();
         socket.on('playmusic', (un, channel, mID:  number) => {
             if (channel != channelId) { return; }
-            const Music = new Audio(musicList[mID]);
+            Music.src = musicList[mID];
             Music.currentTime = 0;
             Music.play();
         });
@@ -85,7 +87,7 @@
     <div class="flex flex-col w-full">
         {#if channelId}
             <p class="text-center font-bold text-lg">{channelId}</p>
-            <div class="flex flex-col overflow-y-auto overflow-x-hidden max-h-full p-5 bg-amber-50/25 rounded-3xl">
+            <div class="flex flex-col overflow-y-auto overflow-x-hidden max-h-full p-5 drop-shadow bg-amber-50/25 rounded-3xl">
             {#each messages as msg, i}
                 {#if messages_ch[i] === channelId}
                     <div class={messages_un[i] === username ? "text-right flex flex-col w-full p-0.5 m-0.5" : "flex flex-col w-full p-0.5 m-0.5"}>
@@ -95,8 +97,8 @@
                 {/if}
             {/each}
             </div>
-            <form onsubmit={sendMessage} class="m-auto">
-                <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 w-75">
+            <form onsubmit={sendMessage} class="mt-2 m-auto">
+                <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 rounded p-0.5 w-150">
                 <button><img src={sendIcon} alt="send"></button>
             </form>
         {:else}

@@ -85,6 +85,7 @@
     <div class="flex flex-col w-full">
         {#if channelId}
             <p class="text-center font-bold text-lg">{channelId}</p>
+            <div class="flex flex-col overflow-y-auto overflow-x-hidden max-h-full p-5 bg-amber-50/25 rounded-3xl">
             {#each messages as msg, i}
                 {#if messages_ch[i] === channelId}
                     <div class={messages_un[i] === username ? "text-right flex flex-col w-full p-0.5 m-0.5" : "flex flex-col w-full p-0.5 m-0.5"}>
@@ -93,6 +94,7 @@
                     </div>
                 {/if}
             {/each}
+            </div>
             <form onsubmit={sendMessage} class="m-auto">
                 <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 w-75">
                 <button><img src={sendIcon} alt="send"></button>

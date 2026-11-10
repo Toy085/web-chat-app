@@ -5,6 +5,9 @@
 	import { onMount } from 'svelte';
     import sendIcon from "#lib/assets/send_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
 
+    import clover from "#lib/assets/music/Clover.mp3"
+    let musicList: Array<string> = [clover]
+
     let channelId = $derived(page.params.channel);
 
     let { children } = $props();
@@ -32,7 +35,12 @@
             if (response.status !== "ok") {return}
             channels = response.channels;
         })
-        refreshMessages
+        refreshMessages();
+        socket.on('playmusic', (un, mID:  number) => {
+            const Music = new Audio(musicList[mID]);
+            Music.currentTime = 0;
+            Music.play();
+        });
     });
 
     socket.on("new_msg", (un, msg, date) => {

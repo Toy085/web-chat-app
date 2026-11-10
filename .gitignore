@@ -28,3 +28,4 @@ vite.config.ts.timestamp-*
 app.db
 server/app.db
 server/app.db
+app/src/lib/assets/music/*

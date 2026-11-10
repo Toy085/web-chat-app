@@ -41,6 +41,7 @@
         socket.on('playmusic', (un, channel, mID:  number) => {
             if (channel != channelId) { return; }
             Music.src = musicList[mID];
+            Music.volume = 1.0;
             Music.currentTime = 0;
             Music.play();
         });

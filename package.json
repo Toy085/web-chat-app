@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "client": "cd app && npm run dev",
+        "server": "cd server && node index.ts",
+		"dev": "npm run client & npm run server"
+	}
+}

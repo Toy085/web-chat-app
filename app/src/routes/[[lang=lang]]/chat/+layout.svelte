@@ -36,7 +36,8 @@
             channels = response.channels;
         })
         refreshMessages();
-        socket.on('playmusic', (un, mID:  number) => {
+        socket.on('playmusic', (un, channel, mID:  number) => {
+            if (channel != channelId) { return; }
             const Music = new Audio(musicList[mID]);
             Music.currentTime = 0;
             Music.play();

@@ -37,12 +37,13 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('msg', (username: string, message: string, channelID: string) => {
+    if (username === null) {return;}
     var expire_date = new Date(Date.now());
     expire_date.setDate(expire_date.getDate() + 90);
     const expireDateValue = expire_date instanceof Date ? expire_date.toISOString() : expire_date;
     add_msg.run(username, message, channelID, expireDateValue);
     io.emit('new_msg', username, message, Date());
-    io.emit('playmusic', username, 0);
+    io.emit('playmusic', username, channelID, 0);
   })
   socket.on('getChannels', (callback) => {
     callback({

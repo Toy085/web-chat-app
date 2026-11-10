@@ -34,7 +34,7 @@
         const Music = new Audio(musicList[0]);
 
         socket.emit("getChannels", (response) => {
-            if (response.status !== "ok") {return}
+            if (response.status !== "ok") { return; }
             channels = response.channels;
         })
         refreshMessages();
@@ -55,6 +55,11 @@
     function sendMessage() {
         if (message.length === 0) { return; }
         if (!browser) { return; }
+        if (message.at(0) === "/") {
+            socket.emit("cmd", username, message, channelId);
+            message = "";
+            return;
+        }
         socket.emit("msg", username, message, channelId);
         message = "";
         refreshMessages();
@@ -63,7 +68,7 @@
     function refreshMessages() {
         if (!browser) { return; }
         socket.emit("getMessageHistory", (response) => {
-            if (response.status !== "ok") {return}
+            if (response.status !== "ok") { return; }
             messages = response.messages;
             localStorage?.setItem("messages", JSON.stringify(messages));
             messages_un = response.usernames;

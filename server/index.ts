@@ -45,6 +45,9 @@ io.on('connection', (socket) => {
     io.emit('new_msg', username, message, Date());
     //io.emit('playmusic', username, channelID, 0);
   })
+  socket.on('cmd', (username: string, command: string, channelID: string) => {
+    console.log("User", username, "tried to use command:", command, "in", channelID);
+  })
   socket.on('getChannels', (callback) => {
     callback({
       channels: ["General", "minecraft", "t-matte", "p-matte", "Kasane Teto Fan Club", "Hatsune Miku Fan Club"],

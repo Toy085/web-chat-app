@@ -106,7 +106,7 @@
     <div class="flex flex-col w-full">
         {#if channelId}
             <p class="text-center font-bold text-lg">{channelId}</p>
-            <div id="chatBox" class="flex flex-col overflow-y-auto scrollbar-thumb-rose-300 scrollbar-track-mauve-200/25 overflow-x-hidden max-h-full p-7.5 drop-shadow bg-amber-50/25 rounded-3xl">
+            <div id="chatBox" class="flex flex-col overflow-y-scroll scrollbar-thumb-rose-300 scrollbar-track-mauve-200/25 overflow-x-hidden max-h-full p-7.5 bg-amber-50/25 rounded-3xl">
             {#each messages as msg, i}
                 {#if messages_ch[i] === channelId}
                     <div class={messages_un[i] === username ? "text-right flex flex-col w-full p-0.5 m-0.5" : "flex flex-col w-full p-0.5 m-0.5"}>

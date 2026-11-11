@@ -1,5 +1,10 @@
 # web-chat-app
 
+A chat app built with svelte and socket.io!
+
+### Screenshots:
+
+
 ## Developing
 
 Install dependencies with `npm install` (or `pnpm install` or `yarn`), 

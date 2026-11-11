@@ -119,7 +119,7 @@
             {/each}
             </div>
             <form onsubmit={sendMessage} class="mt-2 m-auto">
-                <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 rounded p-0.5 w-150">
+                <input minlength="1" maxlength="128" type="text" bind:value={message} class="bg-amber-50 rounded p-0.5 w-150 text-2xl h-auto drop-shadow">
                 <button><img src={sendIcon} alt="send"></button>
             </form>
         {:else}

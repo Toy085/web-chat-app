@@ -45,8 +45,28 @@ io.on('connection', (socket) => {
     io.emit('new_msg', username, message, Date());
     //io.emit('playmusic', username, channelID, 0);
   })
-  socket.on('cmd', (username: string, command: string, channelID: string) => {
-    console.log("User", username, "tried to use command:", command, "in", channelID);
+  socket.on('cmd', (username: string, command: string, channelID: string, callback) => {
+    if (command.includes("/music")) { 
+      if (command.includes("stop")) {
+        io.emit('stopmusic', username, channelID);
+        callback({
+          status: 200
+        })
+        return;
+      } else if (command.includes("play")) {
+        io.emit('playmusic', username, channelID, 0);
+        callback({
+          status: 200
+        })
+        return;
+      }
+    } else {
+      console.log("User", username, "tried to use command:", command, "in", channelID);
+    }
+    callback({
+      status: 400,
+      err: "invalid command"
+    })
   })
   socket.on('getChannels', (callback) => {
     callback({

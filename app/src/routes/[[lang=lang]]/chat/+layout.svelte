@@ -45,6 +45,11 @@
             Music.currentTime = 0;
             Music.play();
         });
+        socket.on('stopmusic', (un, channel) => {
+            if (channel != channelId) { return; }
+            Music.currentTime = 0;
+            Music.pause();
+        })
     });
 
     socket.on("new_msg", (un, msg, date) => {

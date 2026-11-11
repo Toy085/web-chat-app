@@ -15,6 +15,8 @@
     const ENDPOINT = 'http://localhost:3000';
 
     const socket = io(ENDPOINT);
+
+    $effect(() => {if (channelId) { socket.emit("joinchannel", channelId); }});
 	
     let lang = page.params.lang ? page.params.lang : "en";
     let channels: Array<string> = $state([]);
@@ -38,15 +40,13 @@
             channels = response.channels;
         })
         refreshMessages();
-        socket.on('playmusic', (un, channel, mID:  number) => {
-            if (channel != channelId) { return; }
+        socket.on('playmusic', (un, mID:  number) => {
             Music.src = musicList[mID];
             Music.volume = 1.0;
             Music.currentTime = 0;
             Music.play();
         });
-        socket.on('stopmusic', (un, channel) => {
-            if (channel != channelId) { return; }
+        socket.on('stopmusic', (un) => {
             Music.currentTime = 0;
             Music.pause();
         })

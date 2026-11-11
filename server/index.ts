@@ -4,7 +4,7 @@ const { createServer } = require('node:http');
 const { Server } = require('socket.io');
 
 const app = express();
-const server = createServer(app);
+//const server = createServer(app);
 
 const db = new DatabaseSync('app.db');
 db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL)');
@@ -36,36 +36,30 @@ io.on('connection', (socket) => {
       status: "ok"
     })
   })
+  socket.on('joinchannel', (channelID) => {
+    socket.join(channelID);
+    console.log(socket.id, "joined", channelID);
+  })
   socket.on('msg', (username: string, message: string, channelID: string) => {
     if (username === null) {return;}
     var expire_date = new Date(Date.now());
     expire_date.setDate(expire_date.getDate() + 90);
     const expireDateValue = expire_date instanceof Date ? expire_date.toISOString() : expire_date;
     add_msg.run(username, message, channelID, expireDateValue);
-    io.emit('new_msg', username, message, Date());
+    io.to(channelID).emit('new_msg', username, message, Date());
   })
-  socket.on('cmd', (username: string, command: string, channelID: string, callback) => {
+  socket.on('cmd', (username: string, command: string, channelID: string) => {
     if (command.includes("/music")) { 
       if (command.includes("stop")) {
-        io.emit('stopmusic', username, channelID);
-        callback({
-          status: 200
-        })
+        io.to(channelID).emit('stopmusic', username);
         return;
       } else if (command.includes("play")) {
-        io.emit('playmusic', username, channelID, 0);
-        callback({
-          status: 200
-        })
+        io.to(channelID).emit('playmusic', username, 0);
         return;
       }
     } else {
       console.log("User", username, "tried to use command:", command, "in", channelID);
     }
-    callback({
-      status: 400,
-      err: "invalid command"
-    })
   })
   socket.on('getChannels', (callback) => {
     callback({

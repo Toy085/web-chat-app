@@ -37,6 +37,10 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('joinchannel', (channelID) => {
+    socket.rooms.forEach(room => {
+    if (room !== socket.id) { socket.leave(room); }
+    });
+
     socket.join(channelID);
     console.log(socket.id, "joined", channelID);
   })

@@ -16,7 +16,12 @@
 
     const socket = io(ENDPOINT);
 
-    $effect(() => {if (channelId) { socket.emit("joinchannel", channelId); }});
+    $effect(() => {
+        if (channelId) { socket.emit("joinchannel", channelId); }
+        
+        let chatBox = document.getElementById("chatBox");
+        if (chatBox) { chatBox.scrollTop = chatBox.scrollHeight; }
+    });
 	
     let lang = page.params.lang ? page.params.lang : "en";
     let channels: Array<string> = $state([]);
@@ -39,7 +44,9 @@
             if (response.status !== "ok") { return; }
             channels = response.channels;
         })
+
         refreshMessages();
+
         socket.on('playmusic', (un, mID:  number) => {
             Music.src = musicList[mID];
             Music.volume = 1.0;
@@ -99,7 +106,7 @@
     <div class="flex flex-col w-full">
         {#if channelId}
             <p class="text-center font-bold text-lg">{channelId}</p>
-            <div class="flex flex-col overflow-y-auto overflow-x-hidden max-h-full p-5 drop-shadow bg-amber-50/25 rounded-3xl">
+            <div id="chatBox" class="flex flex-col overflow-y-auto overflow-x-hidden max-h-full p-5 drop-shadow bg-amber-50/25 rounded-3xl">
             {#each messages as msg, i}
                 {#if messages_ch[i] === channelId}
                     <div class={messages_un[i] === username ? "text-right flex flex-col w-full p-0.5 m-0.5" : "flex flex-col w-full p-0.5 m-0.5"}>

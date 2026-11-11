@@ -4,6 +4,8 @@ A chat app built with svelte and socket.io!
 
 ### Screenshots:
 
+<img width="1470" height="923" alt="Homepage" src="https://github.com/user-attachments/assets/2ab57c85-a9ec-436d-a799-05706b71f1b9" />
+<img width="1470" height="923" alt="Chat UI" src="https://github.com/user-attachments/assets/cf546cfd-30c3-4d68-8fed-0de2df272be0" />
 
 ## Developing
 

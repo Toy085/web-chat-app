@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { redirect } from "@sveltejs/kit";
     import { io } from "socket.io-client";
     const ENDPOINT = 'http://localhost:3000';
 

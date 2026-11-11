@@ -53,6 +53,7 @@
     })
 
     function sendMessage() {
+        message = message.trim();
         if (message.length === 0) { return; }
         if (!browser) { return; }
         if (message.at(0) === "/") {

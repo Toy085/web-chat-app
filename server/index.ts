@@ -43,7 +43,6 @@ io.on('connection', (socket) => {
     const expireDateValue = expire_date instanceof Date ? expire_date.toISOString() : expire_date;
     add_msg.run(username, message, channelID, expireDateValue);
     io.emit('new_msg', username, message, Date());
-    //io.emit('playmusic', username, channelID, 0);
   })
   socket.on('cmd', (username: string, command: string, channelID: string, callback) => {
     if (command.includes("/music")) { 

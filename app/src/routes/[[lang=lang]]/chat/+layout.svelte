@@ -86,6 +86,10 @@
             localStorage?.setItem("messages", JSON.stringify(messages));
             messages_un = response.usernames;
             messages_ch = response.channels;
+            let chatBox = document.getElementById("chatBox");
+            setTimeout(() => {
+                if (chatBox) { chatBox.scrollTop = chatBox.scrollHeight; }
+            }, 200);
         })
     }
 </script>

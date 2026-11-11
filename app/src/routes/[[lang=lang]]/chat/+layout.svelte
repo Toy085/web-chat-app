@@ -18,9 +18,7 @@
 
     $effect(() => {
         if (channelId) { socket.emit("joinchannel", channelId); }
-
-        let chatBox = document.getElementById("chatBox");
-        if (chatBox) { chatBox.scrollTop = chatBox.scrollHeight; }
+        refreshMessages();
     });
 	
     let lang = page.params.lang ? page.params.lang : "en";

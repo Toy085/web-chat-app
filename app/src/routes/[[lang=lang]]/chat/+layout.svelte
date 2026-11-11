@@ -94,7 +94,7 @@
 
 {@render children()}
 
-<div class="flex flex-row w-[85vw] h-[90vh] m-auto">
+<div class="flex flex-row w-[85vw] h-[80vh] m-auto">
     <!--Channel list--> 
     <div class="flex flex-col w-64 gap-2 p-5">
         <h3 class="text-xl font-medium -ml-5">Channels:</h3>

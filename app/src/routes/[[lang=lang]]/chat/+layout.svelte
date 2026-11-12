@@ -57,7 +57,7 @@
         })
     });
 
-    socket.on("new_msg", (un, msg, date) => {
+    socket.on("new_msg", (un) => {
         if (un === username) { return; }
         refreshMessages();
     })

@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
     expire_date.setDate(expire_date.getDate() + 90);
     const expireDateValue = expire_date instanceof Date ? expire_date.toISOString() : expire_date;
     add_msg.run(username, message, channelID, expireDateValue);
-    io.to(channelID).emit('new_msg', username, message, Date());
+    io.to(channelID).emit('new_msg', username);
   })
   socket.on('cmd', (token: string, command: string, channelID: string) => {
     if (token === null) {return;}

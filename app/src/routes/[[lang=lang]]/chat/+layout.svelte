@@ -71,7 +71,8 @@
             message = "";
             return;
         }
-        socket.emit("msg", username, message, channelId);
+        const token = getCookie("token");
+        socket.emit("msg", token, message, channelId);
         message = "";
         refreshMessages();
     }
@@ -89,6 +90,22 @@
                 if (chatBox) { chatBox.scrollTop = chatBox.scrollHeight; }
             }, 200);
         })
+    }
+
+    function getCookie(cname: string) {
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        let name = cname + "=";
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 </script>
 

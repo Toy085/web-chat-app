@@ -11,6 +11,7 @@
         if (displayname.length === 0) {displayname = username;}
         socket.emit("join", (username), (displayname), (response) => {
             if (response.status === "ok") {
+                document.cookie = "token=" + response.token;
                 localStorage.setItem("username", username);
                 localStorage.setItem("displayname", displayname);
                 const a = document.createElement("a");

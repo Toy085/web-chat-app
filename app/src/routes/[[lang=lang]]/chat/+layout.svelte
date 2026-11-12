@@ -67,7 +67,8 @@
         if (message.length === 0) { return; }
         if (!browser) { return; }
         if (message.at(0) === "/") {
-            socket.emit("cmd", username, message, channelId);
+            const token = getCookie("token");
+            socket.emit("cmd", token, message, channelId);
             message = "";
             return;
         }

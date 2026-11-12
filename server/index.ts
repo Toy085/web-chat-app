@@ -9,8 +9,11 @@ const app = express();
 const server = createServer(app);
 
 const db = new DatabaseSync('app.db');
-db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL)');
+db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL, token TEXT)');
 db.exec('CREATE TABLE IF NOT EXISTS messages (username TEXT NOT NULL, message TEXT NOT NULL, channel TEXT NOT NULL, expire_date DATE)');
+
+const add_user = db.prepare('INSERT INTO users (username, token) VALUES (?, ?)');
+const get_user_by_token = db.prepare('SELECT id, username FROM users WHERE token = ?');
 
 const add_msg = db.prepare('INSERT INTO messages (username, message, channel, expire_date) VALUES (?, ?, ?, ?)');
 const get_msg = db.prepare('SELECT username, message, channel FROM messages');
@@ -55,13 +58,15 @@ io.on('connection', (socket) => {
       })
     }
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
-      let data = {
+    let data = {
         time: Date(),
         userId: socket.id,
     }
 
     console.log(username, 'connected at', Date());
     const token = jwt.sign(data, jwtSecretKey);
+
+    add_user.run(username, token);
 
     callback({
       status: "ok",
@@ -80,7 +85,7 @@ io.on('connection', (socket) => {
     if (token === null) {return;}
     if (validateToken(token) != 200) { return; }
 
-    let username = token; //CHANGE
+    let username = get_user_by_token.get(token)?.username;
     
     var expire_date = new Date(Date.now());
     expire_date.setDate(expire_date.getDate() + 90);
@@ -92,7 +97,7 @@ io.on('connection', (socket) => {
     if (token === null) {return;}
     if (validateToken(token) != 200) { return; }
 
-    let username = token; //CHANGE
+    let username = get_user_by_token.get(token)?.username;
 
     if (command.includes("/music")) { 
       if (command.includes("stop")) {
@@ -124,5 +129,5 @@ io.on('connection', (socket) => {
 });
 
 httpServer.listen(PORT, () => {
-  console.log('server running at http://localhost:3000');
+  console.log(`server running at http://localhost:${PORT}`);
 });

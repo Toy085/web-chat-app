@@ -99,12 +99,16 @@ io.on('connection', (socket) => {
 
     let username = get_user_by_token.get(token)?.username;
 
-    if (command.includes("/music")) { 
-      if (command.includes("stop")) {
+    command = command.trim()
+    command = command.slice(1)
+    let cmd = command.split(" ")
+
+    if (cmd[0] == "music") { 
+      if (cmd[1] == "stop") {
         io.to(channelID).emit('stopmusic', username);
         return;
-      } else if (command.includes("play")) {
-        io.to(channelID).emit('playmusic', username, 0);
+      } else if (cmd[1] === "play") {
+        io.to(channelID).emit('playmusic', username, cmd[2] ? cmd[2] : 0);
         return;
       }
     } else {

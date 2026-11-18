@@ -46,12 +46,12 @@ function validateToken(token: string) {
     }
 }
 
-io.on('connection', (socket) => {
-  socket.on("disconnect", (reason) => {
+io.on('connection', (socket: any) => {
+  socket.on("disconnect", (reason: string) => {
     console.log(socket.id, 'disconnected at', Date(), "Reason:", reason);
   });
 
-  socket.on('join', (username: string, displayname: string, callback) => {
+  socket.on('join', (username: string, displayname: string, callback: any) => {
     if (username.length === 0 || displayname.length === 0) {
       callback({
         status: 400
@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
       token: token
     })
   })
-  socket.on('joinchannel', (channelID) => {
+  socket.on('joinchannel', (channelID: string) => {
     socket.rooms.forEach(room => {
     if (room !== socket.id) { socket.leave(room); }
     });
@@ -117,13 +117,13 @@ io.on('connection', (socket) => {
         console.log("User", username, "tried to use command:", command, "in", channelID);
     }
   })
-  socket.on('getChannels', (callback) => {
+  socket.on('getChannels', (callback: any) => {
     callback({
       channels: ["General", "Minecraft", "t-matte", "p-matte", "Kasane Teto Fan Club", "Hatsune Miku Fan Club"],
       status: "ok"
     })
   })
-  socket.on('getMessageHistory', (callback) => {
+  socket.on('getMessageHistory', (callback: any) => {
     del_old_msg.run(new Date().toISOString());
     callback({
       usernames: get_msg.all().map(row => row.username),

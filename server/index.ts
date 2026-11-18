@@ -103,16 +103,17 @@ io.on('connection', (socket) => {
     command = command.slice(1)
     let cmd = command.split(" ")
 
-    if (cmd[0] == "music") { 
-      if (cmd[1] == "stop") {
-        io.to(channelID).emit('stopmusic', username);
-        return;
-      } else if (cmd[1] === "play") {
-        io.to(channelID).emit('playmusic', username, cmd[2] ? cmd[2] : 0);
-        return;
-      }
-    } else {
-      console.log("User", username, "tried to use command:", command, "in", channelID);
+    switch (cmd[0]) {
+      case "music":
+        switch (cmd[1]) {
+          case "stop":
+            io.to(channelID).emit('stopmusic', username);
+            break;
+          case "play":
+            io.to(channelID).emit('playmusic', username, cmd[2] ? cmd[2] : 0);
+            break;
+        }
+        break;
     }
   })
   socket.on('getChannels', (callback) => {

@@ -29,8 +29,10 @@ Or only server:
 
 ```sh
 cd server
-node index.ts
+npm run dev
 ```
+
+> or run ```node index.ts``` within server folder
 
 ## Building Web client
 

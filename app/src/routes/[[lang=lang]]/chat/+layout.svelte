@@ -29,11 +29,10 @@
     let messages_ch: Array<string> = $state([]);
 
     let username: string = $state("")
-    let displayname: string = $state("")
+    //let displayname: string = $derived(username)
 
 	onMount(() => {
         username = localStorage?.getItem("username")
-        displayname = localStorage?.getItem("displayname")
         messages = JSON.parse(localStorage.getItem("messages") || "[]")
 
         const Music = new Audio(musicList[0]);

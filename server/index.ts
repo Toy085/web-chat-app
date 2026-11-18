@@ -111,9 +111,10 @@ io.on('connection', (socket) => {
             break;
           case "play":
             io.to(channelID).emit('playmusic', username, cmd[2] ? cmd[2] : 0);
-            break;
         }
         break;
+      default:
+        console.log("User", username, "tried to use command:", command, "in", channelID);
     }
   })
   socket.on('getChannels', (callback) => {

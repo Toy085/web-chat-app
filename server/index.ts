@@ -6,7 +6,6 @@ const { createServer } = require('node:http');
 const { Server } = require('socket.io');
 
 const app = express();
-const server = createServer(app);
 
 const db = new DatabaseSync('app.db');
 db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL, token TEXT)');

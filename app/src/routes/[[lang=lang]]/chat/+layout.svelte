@@ -5,8 +5,8 @@
 	import { onMount } from 'svelte';
     import sendIcon from "#lib/assets/send_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
 
-    import clover from "#lib/assets/music/Clover.mp3"
-    import square from "#lib/assets/music/Square.mp3"
+    //import clover from "#lib/assets/music/Clover.mp3"
+    //import square from "#lib/assets/music/Square.mp3"
     let musicList: Array<string> = [clover, square]
 
     let channelId = $derived(page.params.channel);

@@ -13,7 +13,7 @@
 
     let { children } = $props();
 
-    const ENDPOINT = 'http://localhost:3000';
+    const ENDPOINT = 'https://web-chat-app-puof.onrender.com';
 
     const socket = io(ENDPOINT);
 

@@ -7,7 +7,7 @@
 
     //import clover from "#lib/assets/music/Clover.mp3"
     //import square from "#lib/assets/music/Square.mp3"
-    let musicList: Array<string> = [clover, square]
+    let musicList: Array<string> = []
 
     let channelId = $derived(page.params.channel);
 

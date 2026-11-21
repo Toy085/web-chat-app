@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.ts"
+    "dev": "node index.ts",
+    "start": "node index.ts"
   },
   "keywords": [],
   "type": "commonjs",

@@ -1,7 +1,7 @@
 ![Hackatime Badge](https://hackatime-badge.hackclub.com/U09M6CNTTML/web-chat-app)
 # web-chat-app
 
-A chat app built with [svelte](https://svelte.dev/) and [socket.io](https://socket.io/)!
+A chat app built with svelte and socket.io!
 
 ### Screenshots:
 

@@ -22,7 +22,7 @@ let PORT = process.env.PORT || 3000;
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://web-chat-app-frontend-cteb.onrender.com"]
+    origin: ["http://localhost:5173"]
   }
 });
 
@@ -130,6 +130,6 @@ io.on('connection', (socket: any) => {
   })
 });
 
-httpServer.listen(PORT, '0.0.0.0', () => {
-  console.log(`server running at http://0.0.0.0:${PORT}`);
+httpServer.listen(PORT, () => {
+  console.log(`server running at http://localhost:${PORT}`);
 });

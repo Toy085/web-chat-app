@@ -1,6 +1,6 @@
 <script lang="ts">
     import { io } from "socket.io-client";
-    const ENDPOINT = 'https://web-chat-app-puof.onrender.com';
+    const ENDPOINT = 'http://localhost:3000';
 
     const socket = io(ENDPOINT);
 

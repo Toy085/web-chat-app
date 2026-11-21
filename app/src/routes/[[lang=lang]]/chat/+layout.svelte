@@ -5,15 +5,15 @@
 	import { onMount } from 'svelte';
     import sendIcon from "#lib/assets/send_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"
 
-    //import clover from "#lib/assets/music/Clover.mp3"
-    //import square from "#lib/assets/music/Square.mp3"
-    let musicList: Array<string> = []
+    import clover from "#lib/assets/music/Clover.mp3"
+    import square from "#lib/assets/music/Square.mp3"
+    let musicList: Array<string> = [clover, square]
 
     let channelId = $derived(page.params.channel);
 
     let { children } = $props();
 
-    const ENDPOINT = 'https://web-chat-app-puof.onrender.com';
+    const ENDPOINT = 'http://localhost:3000';
 
     const socket = io(ENDPOINT);
 

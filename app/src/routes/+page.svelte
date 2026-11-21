@@ -2,7 +2,9 @@
     import { io } from "socket.io-client";
     const ENDPOINT = 'https://web-chat-app-production-9843e6ab.up.railway.app';
 
-    const socket = io(ENDPOINT);
+    const socket = io(ENDPOINT, {
+        transports: ['websocket']
+    });
 
     let username: string = $state("")
     let displayname: string = $state("")

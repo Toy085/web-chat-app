@@ -15,7 +15,9 @@
 
     const ENDPOINT = 'https://web-chat-app-production-9843e6ab.up.railway.app';
 
-    const socket = io(ENDPOINT);
+    const socket = io(ENDPOINT, {
+        transports: ['websocket']
+    });
 
     $effect(() => {
         if (channelId) { socket.emit("joinchannel", channelId); }

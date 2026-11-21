@@ -22,7 +22,7 @@ let PORT = process.env.PORT || 3000;
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://web-chat-app-app.vercel.app/"]
+    origin: "*"
   }
 });
 

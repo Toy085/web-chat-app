@@ -2,6 +2,7 @@
     "scripts": {
         "client": "cd app && npm run dev",
         "server": "cd server && node index.ts",
-		"dev": "npm run client & npm run server"
+		"dev": "npm run client & npm run server",
+        "start": "node server/index.ts"
 	}
 }

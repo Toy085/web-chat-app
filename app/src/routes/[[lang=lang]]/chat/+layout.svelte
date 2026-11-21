@@ -13,7 +13,7 @@
 
     let { children } = $props();
 
-    const ENDPOINT = 'web-chat-app-production-9843e6ab.up.railway.app';
+    const ENDPOINT = 'https://web-chat-app-production-9843e6ab.up.railway.app';
 
     const socket = io(ENDPOINT);
 
